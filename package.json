@@ -1,0 +1,36 @@
+{
+  "name": "json-to-oapi",
+  "version": "1.0.0",
+  "description": "Converts JSON-Schema to OpenAPI!",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp default",
+    "dev": "gulp default && gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheBrenny/json-to-oapi.git"
+  },
+  "keywords": [
+    "converter",
+    "json-schema",
+    "openapi",
+    "postman",
+    "insomnia"
+  ],
+  "author": "TheBrenny <iam+dev@justbrenny.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheBrenny/json-to-oapi/issues"
+  },
+  "homepage": "https://github.com/TheBrenny/json-to-oapi#readme",
+  "dependencies": {
+    "@openapi-contrib/json-schema-to-openapi-schema": "^1.2.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "http-server": "^0.12.3"
+  }
+}
