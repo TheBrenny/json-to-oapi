@@ -12,7 +12,7 @@ Insomnia didn't know how to handle JSON-Schema, so I found an NPM project which 
 $ git clone https://github.com/TheBrenny/json-to-oapi.git
 $ cd json-to-oapi
 $ npm install --save-dev
-$ http-server
+$ http-server public
 ```
 
 Install globally, or just use [this page]()!
