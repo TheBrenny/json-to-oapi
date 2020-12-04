@@ -5,10 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON-Schema to OpenAPI Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"
+        integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q=="
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 </head>
 
 <body>
-    An online converter from JSON-Schema to OpenAPI.
+    <div class="block header">
+        <h1 class="title">JSON-Schema to OpenAPI</h1>
+    </div>
+    <div class="block">
+        <div id="input" class="ace_textarea"></div>
+        <div class="convert btn">
+            Convert
+        </div>
+        <div id="output" class="ace_textarea"></div>
+    </div>
+    <script>
+        let inputBox = ace.edit("input");
+        inputBox.setTheme("ace/theme/nord_dark");
+        inputBox.session.setMode("ace/mode/json")
+        inputBox.setOption("showPrintMargin", false)
+
+        let outputBox = ace.edit("output");
+        outputBox.setTheme("ace/theme/nord_dark");
+        outputBox.session.setMode("ace/mode/json");
+        outputBox.setReadOnly(true);
+        outputBox.setOption("showPrintMargin", false)
+
+        document.querySelector(".convert.btn").onclick = async function () {
+            outputBox.session.setValue(JSON.stringify(await processConversion(inputBox.getValue()), null, 2))
+        }
+    </script>
 </body>
 
 </html>

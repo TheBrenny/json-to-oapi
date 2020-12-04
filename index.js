@@ -1,8 +1,9 @@
-const convert = require('@openapi-contrib/json-schema-to-openapi-schema');
+const converter = require('@openapi-contrib/json-schema-to-openapi-schema');
 
-
-async function convert() {
-    const schema = {}; // get from one text box
-    const convertedSchema = await convert(schema);
-    console.log(convertedSchema); // pump to another text box
+async function processConversion(data) {
+    if (typeof data === "string") data = JSON.parse(data);
+    const convertedSchema = await converter(data);
+    return convertedSchema;
 }
+
+globalThis.processConversion = processConversion;

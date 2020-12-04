@@ -1,28 +1,43 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
+const Browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const httpServer = require('http-server');
 
-gulp.task("sass", function () {
-    return gulp.src("public/scss/**/*.scss")
-        .pipe(sass().on("error", sass.logError))
-        .pipe(gulp.dest("public/css/"))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+gulp.task("server", async function (cb) {
+    return Promise.resolve().then(() => {
+        httpServer.createServer({
+            root: "./public",
+        }).listen(80, "localhost", () => console.log("Listening on http://localhost:80"));
+    }).then(cb);
 });
 
 gulp.task("browserSync", function (cb) {
     return browserSync.init({
         proxy: "http://localhost/",
-        files: ["public/**/*.*", "views/**/*.*"],
+        files: ["public/**/*.*"],
         open: false,
         port: 81
     }, cb);
 });
 
-gulp.task("watch", gulp.series("sass", function (cb) {
-    gulp.watch("public/scss/**/*.scss", gulp.series("sass"));
-    cb();
-}));
+gulp.task("browserify", function () {
+    let b = Browserify({
+        entries: './index.js',
+        debug: true
+    });
 
-gulp.task("default", gulp.series("nodemon", "browserSync", "watch"));
+    return b
+        .require("./mock_browserify_fns.js", {
+            expose: "fs"
+        })
+        .bundle()
+        .pipe(source("index.js"))
+        .pipe(gulp.dest("public"));
+});
+
+gulp.task("watch", function () {
+    gulp.watch("./index.js", gulp.series("browserify"));
+});
+
+gulp.task("default", gulp.series("browserify", "server", "browserSync", "watch"));

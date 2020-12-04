@@ -4,6 +4,7 @@
   "description": "Converts JSON-Schema to OpenAPI!",
   "main": "index.js",
   "scripts": {
+    "start": "http-server public",
     "build": "gulp default",
     "dev": "gulp default && gulp watch"
   },
@@ -32,6 +33,7 @@
     "browserify": "^17.0.0",
     "gulp": "^4.0.2",
     "gulp-sass": "^4.1.0",
-    "http-server": "^0.12.3"
+    "http-server": "^0.12.3",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
